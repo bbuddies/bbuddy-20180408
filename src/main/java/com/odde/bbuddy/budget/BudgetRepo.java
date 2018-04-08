@@ -1,10 +1,7 @@
 package com.odde.bbuddy.budget;
 
-import org.springframework.stereotype.Component;
+import org.springframework.data.repository.Repository;
 
-@Component
-public class BudgetRepo {
-    public void save(Budget budget) {
-
-    }
+public interface BudgetRepo extends Repository<Budget, Long> {
+    void save(Budget budget);
 }
