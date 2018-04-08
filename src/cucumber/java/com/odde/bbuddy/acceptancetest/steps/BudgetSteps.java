@@ -1,10 +1,12 @@
 package com.odde.bbuddy.acceptancetest.steps;
 
+import com.odde.bbuddy.acceptancetest.data.budget.Budget;
 import com.odde.bbuddy.acceptancetest.driver.UiDriver;
-import cucumber.api.DataTable;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 public class BudgetSteps {
 
@@ -20,7 +22,9 @@ public class BudgetSteps {
     }
 
     @Then("^the following budget will exist$")
-    public void the_following_budget_will_exist(DataTable arg1) throws Throwable {
+    public void the_following_budget_will_exist(List<Budget> budgets) throws Throwable {
+        driver.waitForTextPresent(budgets.get(0).getMonth());
+        driver.waitForTextPresent(budgets.get(0).getAmount());
     }
 
 }
