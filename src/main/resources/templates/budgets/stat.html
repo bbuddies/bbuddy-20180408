@@ -1,0 +1,27 @@
+<form style="max-width: 330px;" method="post">
+
+<div><label>StartDate</label><input type="text" name="startDate" value="{{startDate}}" class="form-control"/></div>
+<div><label>EndDate</label><input type="text" name="endDate" value="{{endDate}}" class="form-control"/></div>
+<hr/>
+<div><input type="submit" value="Stat" class="btn btn-lg btn-primary btn-block"/></div>
+</form>
+
+
+<h4>Result：{{total}}</h4>
+<h4>Matched list:</h4>
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th>Month</th>
+        <th>Amount</th>
+    </tr>
+    </thead>
+    <tbody class="table-hover">
+    {{#budgets}}
+    <tr>
+        <td class="text-left">{{month}}</td>
+        <td class="text-left">{{amount}}</td>
+    </tr>
+    {{/budgets}}
+    </tbody>
+</table>

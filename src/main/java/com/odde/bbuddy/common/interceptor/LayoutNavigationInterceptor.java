@@ -24,6 +24,7 @@ public class LayoutNavigationInterceptor implements HandlerInterceptor {
         modelAndView.addObject("accountsUrl", ACCOUNTS);
         modelAndView.addObject("signoutUrl", SIGNOUT);
         modelAndView.addObject("rootUrl", ROOT);
+        modelAndView.addObject("budgetsUrl", BUDGETS);
     }
 
     @Override

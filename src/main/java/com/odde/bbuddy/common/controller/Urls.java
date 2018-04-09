@@ -2,6 +2,7 @@ package com.odde.bbuddy.common.controller;
 
 public class Urls {
     public static final String ADD = "/add";
+    public static final String STAT = "/stat";
     public static final String INDEX = "/index";
 
     public static final String TRANSACTIONS = "/transactions";
@@ -10,6 +11,8 @@ public class Urls {
 
     public static final String BUDGETS = "/budgets";
     public static final String BUDGETS_ADD = BUDGETS + ADD;
+    public static final String BUDGETS_STAT = BUDGETS + STAT;
+    public static final String BUDGETS_INDEX = BUDGETS + INDEX;
 
 
     public static final String ACCOUNTS = "/accounts";

@@ -5,6 +5,7 @@ import org.mockito.ArgumentCaptor;
 import org.springframework.ui.Model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -48,6 +49,53 @@ public class BudgetControllerTest {
     }
 
     @Test
+    public void stat_budget_c1() {
+
+        givenForStatBudget();
+
+        statBudget("2017-01-01","2018-06-01");
+
+        verifyStat(21*31+43*28+33*30);
+    }
+    @Test
+    public void stat_budget_c2() {
+
+        givenForStatBudget();
+
+        statBudget("2018-01-31","2018-02-01");
+
+        verifyStat(21*1+43*1);
+    }
+    @Test
+    public void stat_budget_c3() {
+
+        givenForStatBudget();
+
+        statBudget("2019-01-01","2019-11-01");
+
+        verifyStat(0);
+    }
+
+    @Test
+    public void stat_budget_c4() {
+
+        givenForStatBudget();
+
+        statBudget("2018-01-10","2018-04-15");
+
+        verifyStat(21*22+43*28+33*15);
+    }
+
+    @Test
+    public void stat_budget_c5() {
+
+        givenForStatBudget();
+
+        statBudget("2018-01-10","2018-01-10");
+
+        verifyStat(21);
+    }
+    @Test
     public void submit_add_budget_should_set_budget_list_for_view() {
         Budget budget = new Budget();
         when(mockBudgetRepo.findAll()).thenReturn(Arrays.asList(budget));
@@ -63,6 +111,15 @@ public class BudgetControllerTest {
         return controller.submitAddBudget(budget, mockModel);
     }
 
+    private String statBudget(String startDate,String endDate) {
+       return  controller.statPost(startDate,endDate, mockModel);
+    }
+
+    private  void  verifyStat(int total){
+        ArgumentCaptor<Integer> captor = forClass(Integer.class);
+        verify(mockModel).addAttribute(eq("total"), captor.capture());
+        assertThat(captor.getValue()).isEqualTo(total);
+    }
     private void verifySaveBudget(int id, LocalDate month, int amount) {
         ArgumentCaptor<Budget> captor = forClass(Budget.class);
         verify(mockBudgetRepo).save(captor.capture());
@@ -74,6 +131,21 @@ public class BudgetControllerTest {
     private void givenExistingBudget(Budget... budgets) {
         when(mockBudgetRepo.findBudgetByMonthEquals(any(LocalDate.class))).thenReturn(Arrays.asList(budgets));
     }
+
+    private void givenAllBudget(List<Budget> lst) {
+
+        when(mockBudgetRepo.findAll()).thenReturn(lst);
+    }
+
+    private void givenForStatBudget() {
+        List<Budget> lst = new ArrayList<Budget>();
+        lst.add(budget(parseMonth("2018-01"),21*31));
+        lst.add(budget(parseMonth("2018-02"),43*28));
+        lst.add(budget(parseMonth("2018-04"),33*30));
+
+        givenAllBudget(lst);
+    }
+
 
     private Budget budget(LocalDate month, int amount) {
         Budget budget = new Budget();
