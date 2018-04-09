@@ -8,6 +8,10 @@ public class Urls {
     public static final String TRANSACTIONS_ADD = TRANSACTIONS + ADD;
     public static final String TRANSACTIONS_INDEX = TRANSACTIONS + INDEX;
 
+    public static final String BUDGETS = "/budgets";
+    public static final String BUDGETS_ADD = BUDGETS + ADD;
+
+
     public static final String ACCOUNTS = "/accounts";
     public static final String ACCOUNTS_ADD = ACCOUNTS + ADD;
     public static final String ACCOUNTS_INDEX = ACCOUNTS + INDEX;
