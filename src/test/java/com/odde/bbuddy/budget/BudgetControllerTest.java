@@ -4,18 +4,20 @@ import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.springframework.ui.Model;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.odde.bbuddy.common.Formats.parseMonth;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentCaptor.forClass;
 import static org.mockito.Mockito.*;
 
 public class BudgetControllerTest {
 
-    private static final String MONTH = "2018-05";
-    private static final String AMOUNT = "1500";
-    private static final String EXISTING_AMOUNT = "1000";
+    private static final LocalDate MONTH =parseMonth("2018-05");
+    private static final int AMOUNT = 1500;
+    private static final int EXISTING_AMOUNT = 1000;
     private static final int ID = 100;
     BudgetRepo mockBudgetRepo = mock(BudgetRepo.class);
     BudgetController controller = new BudgetController(mockBudgetRepo);
@@ -61,7 +63,7 @@ public class BudgetControllerTest {
         return controller.submitAddBudget(budget, mockModel);
     }
 
-    private void verifySaveBudget(int id, String month, String amount) {
+    private void verifySaveBudget(int id, LocalDate month, int amount) {
         ArgumentCaptor<Budget> captor = forClass(Budget.class);
         verify(mockBudgetRepo).save(captor.capture());
         assertThat(captor.getValue().getMonth()).isEqualTo(month);
@@ -70,17 +72,17 @@ public class BudgetControllerTest {
     }
 
     private void givenExistingBudget(Budget... budgets) {
-        when(mockBudgetRepo.findBudgetByMonthEquals(anyString())).thenReturn(Arrays.asList(budgets));
+        when(mockBudgetRepo.findBudgetByMonthEquals(any(LocalDate.class))).thenReturn(Arrays.asList(budgets));
     }
 
-    private Budget budget(String month, String amount) {
+    private Budget budget(LocalDate month, int amount) {
         Budget budget = new Budget();
         budget.setMonth(month);
         budget.setAmount(amount);
         return budget;
     }
 
-    private Budget budget(int id, String month, String amount) {
+    private Budget budget(int id, LocalDate month, int amount) {
         Budget existingBudget = new Budget();
         existingBudget.setId(id);
         existingBudget.setMonth(month);
