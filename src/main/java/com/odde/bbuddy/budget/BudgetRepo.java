@@ -2,6 +2,7 @@ package com.odde.bbuddy.budget;
 
 import org.springframework.data.repository.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface BudgetRepo extends Repository<Budget, Long> {
@@ -9,5 +10,5 @@ public interface BudgetRepo extends Repository<Budget, Long> {
 
     List<Budget> findAll();
 
-    List<Budget> findBudgetByMonthEquals(String month);
+    List<Budget> findBudgetByMonthEquals(LocalDate month);
 }

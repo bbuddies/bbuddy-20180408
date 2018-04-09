@@ -1,5 +1,6 @@
 package com.odde.bbuddy.budget;
 
+import com.odde.bbuddy.common.formatter.Month;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -18,6 +20,8 @@ public class Budget {
     @GeneratedValue
     private long id;
 
-    private String month;
-    private String amount;
+    @Month
+    private LocalDate month;
+
+    private int amount;
 }
